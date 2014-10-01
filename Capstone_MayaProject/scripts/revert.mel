@@ -1,0 +1,11 @@
+global proc revert()
+{
+string $result = `confirmDialog -title "Confirm" -message "Revert to Saved?" 
+     -button "Yes" -button "No" -defaultButton "Yes" 
+     -cancelButton "No" -dismissString "No"`;
+
+if ($result == "Yes") {
+ string $currentScenePath = `file -q -sn`;
+file -f -open $currentScenePath;
+} else warning "Revert cancelled\n";
+}

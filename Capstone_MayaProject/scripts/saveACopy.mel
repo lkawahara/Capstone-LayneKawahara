@@ -1,0 +1,28 @@
+global proc saveACopy()
+{
+string $text;
+string $result = `promptDialog
+    -title "Save a Copy"
+    -message "Enter Name:"
+    -button "OK" -button "Cancel" 
+    -defaultButton "OK" -cancelButton "Cancel"
+    -dismissString "Cancel"`;
+
+if ($result == "OK") {
+    $text = `promptDialog -query -text`;
+
+string $currentScenePath = `file -q -sn`;
+
+string $justLongNameNoMa[];
+$numTokensToo = `tokenize $currentScenePath "." $justLongNameNoMa`;
+
+file -rn ($justLongNameNoMa[0] + "_" + $text);
+file -f -save;
+file -rn $currentScenePath;
+}
+else
+
+{
+warning "Nothing done.\n";
+}
+}
